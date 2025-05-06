@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "Comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "content": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "comments"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "comments"
+    },
+    "subreddits": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subreddit.subreddit",
+      "mappedBy": "user"
+    },
+    "vote": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::vote.vote",
+      "inversedBy": "comments"
+    },
+    "createAt": {
+      "type": "datetime"
+    }
+  }
+}
