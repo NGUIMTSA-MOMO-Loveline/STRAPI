@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -22,7 +23,10 @@ function ForgotPassword() {
 
       setMessage("Un email a été envoyé pour réinitialiser le mot de passe.");
       // Redirection vers la page de reset APRÈS le succès
+      setTimeout(() => {
       navigate("/reset-password");
+      }
+      , 2000); // Redirection après 2 secondes
     } catch (error) {
       console.error("Erreur :", error);
       setMessage("Une erreur est survenue lors de l'envoi de l'email.");
@@ -46,8 +50,9 @@ function ForgotPassword() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        
 
-        <a href="/besoin-d-aide">Besoin d'aide ?</a>
+        <Link to="/besoin-d-aide">Besoin d'aide ?</Link>
 
         
         <button onClick={handleReset}>Réinitialiser le mot de passe</button>

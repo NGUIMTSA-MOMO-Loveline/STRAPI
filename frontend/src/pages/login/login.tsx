@@ -22,7 +22,7 @@ function Login() {
     localStorage.setItem("user", JSON.stringify(res.data.user)); // Stocke les informations de l'utilisateur dans le localStorage
 
     // Redirection vers la page d'accueil après la connexion réussie
-    window.location.href = "/home";
+    window.location.href = "/navigate";
   };
 
   return (
@@ -36,6 +36,12 @@ function Login() {
       <label>Password</label>
         <input    type="password" onChange={(e: React.ChangeEvent<HTMLInputElement>) =>   setPassword(e.target.value)  } required   />
         <a href="/forgot-password">Forgot Password?</a>
+        <p>Tu as déjà un compte ?
+        <a href="/login">Se connecter</a>
+        </p>
+        <h4> Tu n'as pas de compte?
+        <a href="/register">S'inscrire</a>
+        </h4>
         <button type="submit">Login</button>
       </form>
     </div>

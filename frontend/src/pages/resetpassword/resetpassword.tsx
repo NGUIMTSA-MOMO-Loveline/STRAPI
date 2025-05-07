@@ -38,13 +38,10 @@ function ResetPassword() {
         <input type="password"  placeholder="Confirmer le mot de passe"   value={confirmation} onChange={(e) => setConfirmation(e.target.value)}  required   />
       
         <button type="submit">Réinitiliser </button>
-        <p>Tu as déjà un compte ?</p>
-        <a href="/login">Se connecter</a>
         
        
-        <h4> Tu n'as pas de compte?</h4>
-        <a href="/register">S'inscrire</a>
        
+        
         
       </form>
       <p>{message}</p>

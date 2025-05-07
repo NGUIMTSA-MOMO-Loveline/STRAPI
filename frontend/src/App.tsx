@@ -5,6 +5,7 @@ import Login from "./pages/login/login";
 import LogoutButton from "./pages/logout/logout";
 import ForgotPassword from "./pages/forgotpassword/forgotpassword";
 import ResetPassword from './pages/resetpassword/resetpassword';
+import Navigatepage from './pages/Navigatepage';
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -19,6 +20,8 @@ function App() {
       <Route path="/logout" element={<LogoutButton />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/navigate" element={<Navigatepage />} />
+    
     </Routes>
   );
 }
