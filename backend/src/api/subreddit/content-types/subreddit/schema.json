@@ -24,19 +24,20 @@
         }
       }
     },
-    "description": {
-      "type": "richtext",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "creator": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "subreddits"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "subreddit"
+    },
+    "description": {
+      "type": "string"
     }
   }
 }

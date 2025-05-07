@@ -16,22 +16,28 @@
     }
   },
   "attributes": {
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "type"
-      ]
-    },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "votes"
     },
     "post": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
+      "target": "api::post.post",
+      "inversedBy": "votes"
+    },
+    "value": {
+      "type": "integer",
+      "max": 1,
+      "min": -1,
+      "default": 0
+    },
+    "comment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::comment.comment",
       "inversedBy": "votes"
     }
   }

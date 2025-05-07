@@ -27,14 +27,20 @@
     "post": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
-      "inversedBy": "Post"
+      "target": "api::post.post",
+      "inversedBy": "comments"
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comments"
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "comment"
     }
   }
 }
