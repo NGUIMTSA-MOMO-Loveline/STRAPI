@@ -1,4 +1,4 @@
-import axios from './axios';
+import api from './axios.js';
 
 export const submitVote = async (postId, type, jwt) => {
   // type = 'upvote' ou 'downvote'
@@ -6,10 +6,6 @@ export const submitVote = async (postId, type, jwt) => {
     data: {
       type,
       post: postId,
-    }
-  }, {
-    headers: {
-      Authorization: `Bearer ${jwt}`
     }
   });
   return res.data;

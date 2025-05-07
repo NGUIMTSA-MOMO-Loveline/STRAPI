@@ -1,7 +1,7 @@
-import axios from './axios'; // Ton instance Axios
+import axios from 'axios'; // Ton instance Axios
 
 export const register = async (username, email, password) => {
-  const res = await axios.post('/auth/local/register', {
+  const res = await axios.post('http://localhost:1337/api/auth/local/register', {
     username,
     email,
     password,
@@ -10,7 +10,7 @@ export const register = async (username, email, password) => {
 };
 
 export const login = async (identifier, password) => {
-  const res = await axios.post('/auth/local', {
+  const res = await axios.post('http://localhost:1337/api/auth/local', {
     identifier,
     password,
   });

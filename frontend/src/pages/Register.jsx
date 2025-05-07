@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import axios from '../api/axios';
+import { register } from '../api/auth';
 
 export default function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const submit = (e) => {
+  const submit = async (e) => {
+    console.log('hello')
     e.preventDefault();
-    axios.post('/auth/local/register', {
-      username,
-      email,
-      password
-    }).then(() => alert('Inscription réussie !'));
+    const res = await register(username,email,password)
+    console.log(res.data);
+    
   };
 
   return (
@@ -20,7 +19,7 @@ export default function Register() {
       <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Nom d'utilisateur" />
       <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
       <input value={password} type="password" onChange={e => setPassword(e.target.value)} placeholder="Mot de passe" />
-      <button>Register</button>
+      <input type="submit" value='REgister' />
     </form>
   );
 }
