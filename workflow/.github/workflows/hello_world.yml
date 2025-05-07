@@ -1,0 +1,24 @@
+name: Ubuntu Server - Hello World
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Cloner le dépôt
+        uses: actions/checkout@v3
+
+      - name: 🛠 Installer les dépendances
+        run: sudo apt update && sudo apt install -y curl
+
+      - name: 🚀 Démarrer le serveur et afficher "Hello, World!"
+        run: echo "Hello, World! 🚀"
+
+      - name: ✅ Fin du workflow
+        run: echo "Le workflow s'est exécuté avec succès !"
