@@ -1,26 +1,33 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { login } from '../api/auth'; // Assurez-vous d'importer la fonction de connexion depuis votre API
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    alert('Connexion réussie!');
-    // Logique de connexion à insérer ici
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    console.log('Login clicked');
+    try {
+      const res = await login(email, password);
+      console.log(res.data);
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
+    }
   };
 
   return (
     <div className="login-container">
-      <h2>Page de Connexion</h2>
+      <h2>Page de Connexion aaa</h2>
       <form onSubmit={handleLogin}>
-        <label htmlFor="username">Nom d'utilisateur :</label>
+        <label htmlFor="username">Email :</label>
         <input
-          type="text"
+          type="email"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Entrez votre nom d'utilisateur"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Entrez votre email"
         />
         <label htmlFor="password">Mot de passe :</label>
         <input
@@ -30,7 +37,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Entrez votre mot de passe"
         />
-        <Link to = "/home" type="submit">Se connecter</Link>
+        <input type='submit' value='Se connecter' />
       </form>
     </div>
     
