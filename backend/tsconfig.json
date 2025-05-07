@@ -23,7 +23,7 @@
     // Include all js files
     "./**/*.js",
     // Force the JSON files in the src folder to be included
-    "src/**/*.json"
+    "backend2/src/**/*.json"
   ],
 
   "exclude": [
@@ -34,10 +34,10 @@
     ".tmp/",
 
     // Do not include admin files in the server compilation
-    "src/admin/",
+    "backend2/src/admin",
     // Do not include test files
     "**/*.test.*",
     // Do not include plugins in the server compilation
-    "src/plugins/**"
+    "backend2/src/plugins/**"
   ]
 }
