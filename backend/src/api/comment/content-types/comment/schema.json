@@ -27,14 +27,29 @@
     "post": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
-      "inversedBy": "Post"
+      "target": "api::post.post",
+      "inversedBy": "comments"
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article.article",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comments"
+    },
+    "subreddits": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subreddit.subreddit",
+      "mappedBy": "user"
+    },
+    "vote": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::vote.vote",
+      "inversedBy": "comments"
+    },
+    "createAt": {
+      "type": "datetime"
     }
   }
 }

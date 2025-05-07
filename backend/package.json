@@ -16,6 +16,7 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
+    "@liveblocks/react": "^2.24.1",
     "@strapi/plugin-cloud": "5.12.6",
     "@strapi/plugin-users-permissions": "5.12.6",
     "@strapi/strapi": "5.12.6",

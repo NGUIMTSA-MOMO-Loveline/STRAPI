@@ -24,15 +24,27 @@
     },
     "user": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::article.article",
-      "inversedBy": "votes"
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "vote"
     },
     "post": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::article.article",
-      "inversedBy": "votes"
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "vote"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "vote"
+    },
+    "value": {
+      "type": "integer",
+      "default": 0,
+      "min": -1,
+      "max": 1
     }
   }
 }
