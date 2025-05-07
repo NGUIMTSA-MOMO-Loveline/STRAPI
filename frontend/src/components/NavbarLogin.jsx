@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './components.css';
 
-export default function Navbar() {
+const NavbarLogin = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);  // État pour afficher le formulaire de post
@@ -159,3 +159,5 @@ export default function Navbar() {
     </>
   );
 }
+
+export default NavbarLogin;

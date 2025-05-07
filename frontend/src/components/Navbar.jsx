@@ -11,13 +11,6 @@ export default function Navbar() {
     alert("Déconnecté");
     setShowMenu(false);
   };
-
-  const handleLoginClick = () => {
-    const loginWindow = window.open('/login', '_blank', 'width=600,height=600');
-    if (!loginWindow) {
-      alert('Popup bloquée, autorise les fenêtres pop-up.');
-    }
-  };
   
 
   return (
@@ -50,7 +43,7 @@ export default function Navbar() {
           Download app
         </button>
 
-        <Link to = "/login" className="btn2" onClick={handleLoginClick}>
+        <Link to = "/login" className="btn2" >
           Login
         </Link>
 

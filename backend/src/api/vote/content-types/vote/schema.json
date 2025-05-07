@@ -18,9 +18,7 @@
   "attributes": {
     "type": {
       "type": "enumeration",
-      "enum": [
-        "type"
-      ]
+      "enum": ["type"]
     },
     "user": {
       "type": "relation",
