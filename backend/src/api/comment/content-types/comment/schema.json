@@ -24,17 +24,17 @@
         }
       }
     },
-    "post": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::article.article",
-      "inversedBy": "Post"
-    },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::article.article",
       "inversedBy": "comments"
+    },
+    "post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article.article",
+      "inversedBy": "comment"
     }
   }
 }
