@@ -54,10 +54,7 @@ export default function Register() {
 
   return (
     <div className="register-container">
-      <div className="register-header">
-        <img src={logo} alt="Logo HETIC" className="logo" />
-        <span className="logo-text">HETIC</span>
-      </div>
+      
       <form onSubmit={handleSubmit} className="register-form">
         <label>Username</label>
         <input
