@@ -1,45 +1,70 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { login } from '../api/auth'; // Assurez-vous d'importer la fonction de connexion depuis votre API
+import logo from "../assets/hetic.jpg";
+import { login } from '../api/auth';
+import axios from 'axios';
+ 
+
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    console.log('Login clicked');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const res = await login(email, password);
-      console.log(res.data);
+      const response = await axios.post('http://localhost:1337/api/auth/local', {
+        identifier: username,
+        password: password,
+        message: message,
+      });
+      if (response.data && response.data.jwt) {
+      console.log(response.data.jwt);
+      console.log(response.data.user);
+      localStorage.setItem("jwt", response.data.jwt);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+     
+        setMessage('✅ Success : Vous êtes à présent connecté.');
+         setTimeout(() => {
+          navigate('/navigate'); // 👈 redirige vers la page d'accueil après 1.5 sec
+        }, 1500);
+      } else {
+        setMessage(' Échec : réponse inattendue du serveur.');
+      }
     } catch (error) {
-      console.error('Erreur lors de la connexion :', error);
+      
+      console.error('Erreur lors de la connexion :', error.response?.data || error.message);
+      setMessage("Connexion échouée : " + (error.response?.data?.error?.message || "Vérifiez vos identifiants."));
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Page de Connexion aaa</h2>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="username">Email :</label>
+    <div className="login-content">
+      <div className="login-header">
+        <img src={logo} alt="Logo HETIC" className="logo" />
+      </div>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label>Username</label>
         <input
-          type="email"
-          id="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Entrez votre email"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
-        <label htmlFor="password">Mot de passe :</label>
+        <label>Password</label>
         <input
           type="password"
-          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Entrez votre mot de passe"
+          required
         />
-        <input type='submit' value='Se connecter' />
+        <a href="/forgot-password">Forgot Password?</a>
+        <p>Tu as déjà un compte ? <Link to="/login">Se connecter</Link></p>
+        <h4>Tu n'as pas de compte ? <Link to="/register">S'inscrire</Link></h4>
+        <button type="submit">Login</button>
       </form>
     </div>
-    
   );
 }
