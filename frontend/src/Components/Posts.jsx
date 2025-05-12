@@ -10,7 +10,7 @@ function Posts(){
 
     useEffect(()=>{ /* pour charger le contenant */
 
-     fetch('http://localhost:1337/api/posts?populate=Image', 
+     fetch('http://localhost:1337/api/posts?populate=*', 
         /* on vas egalement lui passer un onjet pour indiquer le type de methode */
         {
             method:"GET",
@@ -21,10 +21,10 @@ function Posts(){
         .then(res =>res.json())
         .then(res => {
             console.log(res.data) 
-            setTimeout(() => {
-                setPosts(res.data) // Strapi retourne un objet avec la clé 'data'
-                setIsLoading(false) }) /* setIsLoading(false) */ /* on met le state a false pour dire que le chargement est terminé */ 
-            }, 2000) /* pour simuler le temps de chargement */
+            setPosts(res.data) // Strapi retourne un objet avec la clé 'data'
+            setIsLoading(false) }) /* setIsLoading(false) */ /* on met le state a false pour dire que le chargement est terminé */ 
+            
+            
             
         .catch(err => {
             console.error("Erreur lors du chargement :", err);

@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Grid, Card, CardHeader, Avatar, IconButton, Typography, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FormComment from '../Components/Forms/FormComment';
-import CommentsAPI from '../Components/services/commentsAPI';
+import FormComment from './Forms/FormComment';
+import CommentsAPI from './services/commentsAPI';
+import dayjs from 'dayjs'; // Pour la date dynamique
 
 export default function Post() {
     const { id } = useParams();
@@ -61,8 +62,8 @@ export default function Post() {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title="Nom de l'auteur"
-                    subheader="Le 14 mai 2025 à 18h"
+                    title={postState.user?.username || 'Auteur inconnu'}
+                    subheader={dayjs(postState.createdAt).format('D MMMM YYYY')}
                 />
                 <img src={`http://localhost:1337${postState.Image?.[0]?.url}`} alt={postState.Title} width="100%" style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
                 <Typography variant="h5" sx={{ fontWeight: 'bold', marginTop: 2, marginLeft: 2 }}>

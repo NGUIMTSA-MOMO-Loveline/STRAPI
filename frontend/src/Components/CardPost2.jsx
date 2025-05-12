@@ -45,7 +45,7 @@ export default function CardPost2({post}) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {post.user?.avatar}
           </Avatar>
         }
         action={
@@ -53,7 +53,7 @@ export default function CardPost2({post}) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={post.Title}
+        title={post.user?.username || 'Auteur inconnu'}
         subheader={dayjs(post.createdAt).format('D MMMM YYYY')} // Affiche la date de création
       />
 

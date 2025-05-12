@@ -3,7 +3,7 @@ import axios from "axios";
 function create(comment) {
   // Envoyer les données au format requis par Strapi
   return axios
-    .post("http://localhost:1337/api/comments", {
+    .post("http://localhost:1337/api/comments?populate=user", {
       data: comment,  // `data` est nécessaire ici
     })
     .then((response) => {

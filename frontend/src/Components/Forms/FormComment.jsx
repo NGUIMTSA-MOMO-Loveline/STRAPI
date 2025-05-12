@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import CommentsAPI from "../services/commentsAPI";
 import "./FormComment.css"; // Importer le fichier CSS pour le style
@@ -13,7 +13,7 @@ export default function FormComment({ fetchComments, id }) { // Ajoute "id" comm
       const data = await CommentsAPI.create(comment);
       console.log("Réponse de Strapi :", data);
       setComment({ content: "" });
-      fetchComments();
+      fetchComments(); // Appeler la fonction pour récupérer les commentaires après la création
     } catch (error) {
       console.error("Erreur lors de la création du commentaire :", error);
     }
@@ -37,6 +37,9 @@ export default function FormComment({ fetchComments, id }) { // Ajoute "id" comm
     setComment({ content: "" });
     setIsFocused(false); // Cache les boutons quand on annule
   };
+
+  useEffect(() => {},[comment]) // Ajout d'un useEffect pour surveiller les changements dans le commentaire
+
 
   return (
     <div>

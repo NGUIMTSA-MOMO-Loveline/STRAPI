@@ -31,11 +31,17 @@
     "Slug": {
       "type": "uid"
     },
-    "post": {
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
+    },
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::author.author",
-      "inversedBy": "users"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "posts"
     }
   }
 }

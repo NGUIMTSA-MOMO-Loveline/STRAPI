@@ -415,8 +415,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
-    comment: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
-    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -474,7 +472,6 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
   };
 }
 
@@ -541,12 +538,15 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::comment.comment'
     >;
-    post: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    post: Schema.Attribute.Relation<'manyToOne', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -594,6 +594,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     Content: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -605,13 +606,16 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
       Schema.Attribute.Private;
-    post: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
     publishedAt: Schema.Attribute.DateTime;
     Slug: Schema.Attribute.UID;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1151,6 +1155,7 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1172,6 +1177,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
