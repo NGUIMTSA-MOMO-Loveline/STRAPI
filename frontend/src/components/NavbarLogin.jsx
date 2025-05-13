@@ -56,37 +56,9 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-right">
-          <button className="icon-btn" title="Translate">
-            <img
-              src="https://cdn.pixabay.com/photo/2021/09/20/22/15/translate-6641970_1280.png"
-              alt="Translate"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
 
-          <button className="btn3">AD</button>
-
-          <button className="icon-btnm" title="Messages">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7kc14Lagl_gWNh1dX91SLvjXyTOiIYf0-EA&s"
-              alt="Messages"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
-
-          <button className="btn4" onClick={() => setShowPostForm(!showPostForm)}>
+          <button className="btn4" onClick={() => navigate('/create-post')}>
             + Create Post
-          </button>
-
-          <button className="icon-btn" title="Notifications">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png"
-              alt="Notifications"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
           </button>
 
           {user && (
@@ -159,7 +131,9 @@ export default function Navbar() {
               onChange={(e) => setPostContent(e.target.value)}
               required
             />
-            <button type="submit">Create Post</button>
+           <button className="btn4" onClick={() => navigate('/create-post')}>
+              + Create Post
+            </button>
           </form>
         </div>
       )}

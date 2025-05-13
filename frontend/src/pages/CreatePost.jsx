@@ -97,7 +97,7 @@ const AddPost = () => {
           data: {
             title,
             content,
-            subreddit: community,
+            subreddit: { connect: [community] },
             image: imageId,
           },
         }),
@@ -139,7 +139,7 @@ const AddPost = () => {
         <select value={community} onChange={(e) => setCommunity(e.target.value)} required>
           <option value="">Sélectionner une communauté</option>
           {subreddits.map((sub) => (
-            <option key={sub.id} value={sub.id}>
+            <option key={sub.id} value={sub.documentId}>
               {sub.name}
             </option>
           ))}
