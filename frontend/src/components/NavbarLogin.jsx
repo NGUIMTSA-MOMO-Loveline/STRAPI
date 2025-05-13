@@ -1,32 +1,39 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './components.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [showPostForm, setShowPostForm] = useState(false);  // État pour afficher le formulaire de post
-  const [postTitle, setPostTitle] = useState('');  // État pour le titre du post
-  const [postContent, setPostContent] = useState('');  // État pour le contenu du post
-  const [posts, setPosts] = useState([]);  // Liste des posts
+  const [showPostForm, setShowPostForm] = useState(false);
+  const [postTitle, setPostTitle] = useState('');
+  const [postContent, setPostContent] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState(null); // 🔥 Nouvel état pour l'utilisateur
+
+  // Charger l'utilisateur depuis localStorage au chargement
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleLogout = () => {
-    // Supprimer le token (ou les infos de session) du localStorage
-    localStorage.removeItem("token");
-
-    // Rediriger vers la page de connexion
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
     navigate("/");
   };
 
-  // Fonction pour créer un post
   const handleCreatePost = (e) => {
     e.preventDefault();
     if (postTitle.trim() && postContent.trim()) {
       setPosts([...posts, { title: postTitle, content: postContent }]);
       setPostTitle('');
       setPostContent('');
-      setShowPostForm(false);  // Ferme le formulaire après la soumission
+      setShowPostForm(false);
     }
   };
 
@@ -49,51 +56,25 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-right">
-          <button className="icon-btn" title="Translate">
-            <img
-              src="https://cdn.pixabay.com/photo/2021/09/20/22/15/translate-6641970_1280.png"
-              alt="Translate"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
 
-          <button className="btn3">AD</button>
-
-          <button className="icon-btnm" title="Messages">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7kc14Lagl_gWNh1dX91SLvjXyTOiIYf0-EA&s"
-              alt="Messages"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
-
-          <button className="btn4" onClick={() => setShowPostForm(!showPostForm)}>
+          <button className="btn4" onClick={() => navigate('/create-post')}>
             + Create Post
           </button>
 
-          <button className="icon-btn" title="Notifications">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png"
-              alt="Notifications"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
-
-          <button
-            className="icon-btnp"
-            title="Profile"
-            onClick={() => setShowProfile(!showProfile)}
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/747/747376.png"
-              alt="Profile"
-              className="navbar-icon"
-              style={{ width: '20px', height: '20px' }}
-            />
-          </button>
+          {user && (
+            <button
+              className="icon-btnp"
+              title="Profile"
+              onClick={() => setShowProfile(!showProfile)}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/747/747376.png"
+                alt="Profile"
+                className="navbar-icon"
+                style={{ width: '20px', height: '20px' }}
+              />
+            </button>
+          )}
 
           <button className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
             &#8942;
@@ -101,7 +82,11 @@ export default function Navbar() {
 
           {showMenu && (
             <div className="dropdown-menu">
-              <button onClick={handleLogout}>Logout</button>
+              {user ? (
+                <button onClick={handleLogout}>Logout</button>
+              ) : (
+                <button onClick={() => navigate("/login")}>Login</button>
+              )}
               <button onClick={() => alert("Aide bientôt disponible")}>
                 Help
                 <img
@@ -116,19 +101,20 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {showProfile && (
+      {/* 🔥 Section Profil dynamique */}
+      {showProfile && user && (
         <div className="profile-panel">
           <p className='profil'>
             <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="film" className="profil-icon" />
             Profil
           </p>
-          <p className='profil'>Nom : John Doe</p>
-          <p className='profil'>Email : john.doe@example.com</p>
+          <p className='profil'>Nom : {user.username}</p>
+          <p className='profil'>Email : {user.email}</p>
           <button onClick={() => setShowProfile(false)}>Close</button>
         </div>
       )}
 
-      {/* Formulaire pour créer un post */}
+      {/* Formulaire Post */}
       {showPostForm && (
         <div className="create-post-form">
           <form onSubmit={handleCreatePost}>
@@ -145,7 +131,9 @@ export default function Navbar() {
               onChange={(e) => setPostContent(e.target.value)}
               required
             />
-            <button type="submit">Create Post</button>
+           <button className="btn4" onClick={() => navigate('/create-post')}>
+              + Create Post
+            </button>
           </form>
         </div>
       )}

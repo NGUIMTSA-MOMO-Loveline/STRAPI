@@ -4,6 +4,7 @@ import PostCard from '../components/PostCard';
 import Navbar from '../components/NavbarLogin';
 import Sidebar from '../components/sidebar';
 
+
 export default function Home() {
   const [posts, setPosts] = useState([]);
 

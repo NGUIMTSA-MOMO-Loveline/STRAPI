@@ -1,0 +1,124 @@
+/* CreatePost.css */
+
+.add-post {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  color: #111;
+}
+
+.add-post h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #006400;
+}
+
+.add-post select,
+.add-post input[type="text"],
+.add-post input[type="url"],
+.add-post input[type="file"],
+.add-post textarea {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab-menu button {
+  flex: 1;
+  padding: 10px;
+  background-color: #e0ffe0;
+  border: 1px solid #006400;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  color: #006400;
+}
+
+.tab-menu button.active,
+.tab-menu button:hover {
+  background-color: #006400;
+  color: white;
+}
+
+.poll-options input {
+  margin-bottom: 10px;
+}
+
+.poll-options button {
+  margin-top: 10px;
+  background-color: #008000;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.poll-options button:hover {
+  background-color: #005f00;
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.add-post button[type="submit"],
+.add-post .cancel-button {
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.add-post button[type="submit"] {
+  background-color: #006400;
+  color: white;
+}
+
+.add-post .cancel-button {
+  background-color: #333;
+  color: white;
+}
+
+.add-post img,
+.add-post video {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.add-post img,
+.add-post video {
+  margin-top: 10px;
+  margin-bottom: 30px; /* 👈 ajoute plus d'espace en bas */
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
