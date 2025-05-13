@@ -55,6 +55,12 @@
       "relation": "manyToOne",
       "target": "api::subreddit.subreddit",
       "inversedBy": "community"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "posts"
     }
   }
 }
