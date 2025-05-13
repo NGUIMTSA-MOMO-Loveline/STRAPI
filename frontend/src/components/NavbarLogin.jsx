@@ -4,7 +4,6 @@ import './components.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);
@@ -77,9 +76,10 @@ export default function Navbar() {
             />
           </button>
 
-          <button className="btn4" onClick={() => setShowPostForm(!showPostForm)}>
+          <button className="btn4" onClick={() => navigate('/create-post')}>
             + Create Post
           </button>
+
 
           <button className="icon-btn" title="Notifications">
             <img
