@@ -12,6 +12,10 @@ import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Posts from "./Components/Posts"
+import PostPage from "./Components/PostPage"
+import Container from '@mui/material/Container';
+
 
 
 function App() {
@@ -28,11 +32,25 @@ function App() {
             <Route path="/r/:name" element={<Subreddit />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+
+            <Container>    
+              <div className='App'>
+        
+                <Routes>
+                  <Route path="/bld" element={<Posts/>} />
+                  <Route path="/bld/post/:id" element={<PostPage/>} />
+                </Routes>
+
+              </div>
+            </Container>
+
           </Routes>
           <ToastContainer />
 
     </>
   );
 }
+    
+
 
 export default App;
