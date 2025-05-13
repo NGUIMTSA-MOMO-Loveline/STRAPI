@@ -33,7 +33,7 @@
     "description": {
       "type": "string"
     },
-    "community": {
+    "post": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post",
