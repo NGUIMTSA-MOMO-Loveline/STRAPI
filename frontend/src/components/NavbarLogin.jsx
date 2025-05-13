@@ -7,9 +7,6 @@ export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);  // État pour afficher le formulaire de post
-  const [postTitle, setPostTitle] = useState('');  // État pour le titre du post
-  const [postContent, setPostContent] = useState('');  // État pour le contenu du post
-  const [posts, setPosts] = useState([]);  // Liste des posts
 
   const handleLogout = () => {
     // Supprimer le token (ou les infos de session) du localStorage
@@ -22,7 +19,7 @@ export default function Navbar() {
   // Fonction pour créer un post
   const handleCreatePost = () => {
    // Rediriger vers la page de connexion
-    navigate("/create-post");
+    navigate("/Create-Post");
   };
 
   return (
@@ -122,6 +119,7 @@ export default function Navbar() {
           <button onClick={() => setShowProfile(false)}>Close</button>
         </div>
       )}
+
 
       {/* Affichage des posts créés */}
       {posts.length > 0 && (
