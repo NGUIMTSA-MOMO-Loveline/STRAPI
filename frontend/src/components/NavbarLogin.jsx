@@ -4,6 +4,7 @@ import './components.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);

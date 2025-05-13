@@ -13,10 +13,9 @@ export default function Navbar() {
   };
 
   const handleLoginClick = () => {
-    const loginWindow = window.open('/login', '_blank', 'width=600,height=600');
-    if (!loginWindow) {
-      alert('Popup bloquée, autorise les fenêtres pop-up.');
-    }
+
+    navigate("/login");
+    
   };
   
 
