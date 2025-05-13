@@ -3,7 +3,7 @@ import { TextField, Button } from "@mui/material";
 import CommentsAPI from "../services/commentsAPI";
 import "./FormComment.css"; // Importer le fichier CSS pour le style
 
-export default function FormComment({ fetchComments, id }) { // Ajoute "id" comme prop si nécessaire
+export default function FormComment({ fetchComments, documentId }) { // Ajoute "id" comme prop si nécessaire
   const [comment, setComment] = useState({ content: "" });
   const [isFocused, setIsFocused] = useState(false); // Ajout d'un état pour savoir si le champ est activé
 
@@ -28,7 +28,7 @@ export default function FormComment({ fetchComments, id }) { // Ajoute "id" comm
     const { name, value } = event.target;
     setComment({
       ...comment,
-      post: id, // Utiliser le prop "id"
+      post: documentId, // Utiliser le prop "id"
       [name]: value,
     });
   };

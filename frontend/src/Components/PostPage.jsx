@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Grid, Card, CardHeader, Avatar, IconButton, Typography, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import { red } from '@mui/material/colors';
@@ -8,35 +8,32 @@ import CommentsAPI from './services/commentsAPI';
 import dayjs from 'dayjs'; // Pour la date dynamique
 
 export default function Post() {
-    const { id } = useParams();
+    const { documentId } = useParams();
     const [postState, setPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [comments, setComments] = useState([]); // État pour stocker les commentaires
+    
   
     useEffect(() => {
-        fetch('http://localhost:1337/api/posts?populate=Image') 
+        fetch(`http://localhost:1337/api/posts/${documentId}?populate=Image`) 
             .then(res => res.json())
             .then(res => {
-                const postList = res.data || res;
-                const foundPost = postList.find(p => String(p.id) === String(id));
-                if (foundPost) {
-                    setPost(foundPost);
-                } else {
-                    setError('Post not found');
-                }
+                setPost(res.data)   
+                fetchComments();
+            
+
             })
             .catch(err => {
                 console.error(err);
                 setError('Error fetching post');
             })
             .finally(() => setIsLoading(false));
-          fetchComments();
-    }, [id]);
+    }, [documentId]);
     
     const fetchComments = async () => {
         try {
-            const data = await CommentsAPI.findAll();
+            const data = await CommentsAPI.findAllByPostId(documentId);
             console.log("Commentaires récupérés :", data);
             setComments(data.data || []); // Mettre à jour l'état avec les commentaires récupérés
         } catch (error) {
@@ -54,7 +51,7 @@ export default function Post() {
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="author">
-                            A
+                            {postState.user?.avatar || 'U'}
                         </Avatar>
                     }
                     action={
@@ -75,7 +72,7 @@ export default function Post() {
             </Card>
 
             <Grid sx={{ padding: '0 16px' }}>
-                <FormComment postId={postState.id} fetchComments={fetchComments} id={id} />
+                <FormComment  fetchComments={fetchComments}  documentId={documentId} />
             </Grid>
             
             <Grid sx={{ padding: '0 16px' }}>
@@ -86,7 +83,7 @@ export default function Post() {
                                 <Avatar alt="Utilisateur" src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={<Typography sx={{ fontWeight: 'bold' }}>Utilisateur</Typography>}
+                                primary={<Typography sx={{ fontWeight: 'bold' }}>{comment.attributes?.user?.data?.attributes?.username || 'Utilisateur'}</Typography>}
                                 secondary={<Typography sx={{ color: 'text.secondary' }}>{comment.content}</Typography>}
                             />
                         </ListItem>

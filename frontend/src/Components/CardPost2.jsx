@@ -19,7 +19,7 @@ import { PiShareFat } from "react-icons/pi";
 import { TiArrowUpOutline } from "react-icons/ti";
 import { TiArrowDownOutline } from "react-icons/ti";
 import { TbAward } from "react-icons/tb";
-
+import { useState } from 'react';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -33,7 +33,8 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CardPost2({post}) {
-  const [expanded, setExpanded] = React.useState(false);
+
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -85,7 +86,7 @@ export default function CardPost2({post}) {
           <TiArrowDownOutline />
         </IconButton>
 
-        <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/post/${post.documentId}`} style={{ textDecoration: 'none' }}>
           <IconButton aria-label="comment">
             <FaRegComment />
           </IconButton>

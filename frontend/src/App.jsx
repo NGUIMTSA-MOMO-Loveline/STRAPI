@@ -11,7 +11,7 @@ function App(){
       <Router>
         <Routes>
           <Route path="/" element={<Posts/>} />
-          <Route path="/post/:id" element={<PostPage/>} />
+          <Route path="/post/:documentId" element={<PostPage/>} />
         </Routes>
       </Router>
 

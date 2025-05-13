@@ -24,7 +24,7 @@
         }
       }
     },
-    "users_permissions_user": {
+    "User": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
