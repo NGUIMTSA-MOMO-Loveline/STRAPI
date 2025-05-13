@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import logo from "../assets/hetic.jpg";
 import { register } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import logo from "../assets/hetic.jpg";
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -54,6 +54,9 @@ export default function Register() {
 
   return (
     <div className="register-container">
+      <div className="register-header">
+              <img src={logo} alt="Logo HETIC" className="logo" />
+            </div>
       
       <form onSubmit={handleSubmit} className="register-form">
         <label>Username</label>
