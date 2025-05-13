@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreatePost.css';
 
 const AddPost = () => {
-  const [activeTab, setActiveTab] = useState('text');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
-  const [link, setLink] = useState('');
-  const [pollOptions, setPollOptions] = useState(['', '']);
+  
   const [community, setCommunity] = useState('');
   const [error, setError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [subreddits, setSubreddits] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:1337/api/subreddits")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Erreur réseau");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.data) {
+          setSubreddits(data.data);
+        } else {
+          setError("Données des communautés incorrectes.");
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Erreur de chargement des subreddits.");
+        setLoading(false);
+      });
+  }, []);
 
   const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      if (file.size > 5000000) { // 5MB max size
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5000000) {
         setError('Le fichier est trop volumineux. Veuillez choisir un fichier de moins de 5 Mo.');
       } else {
         setImage(file);
@@ -26,71 +49,102 @@ const AddPost = () => {
     }
   };
 
-  const isValidUrl = (url) => {
-    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
-    return regex.test(url);
+  const uploadImage = async (file, token) => {
+    const formData = new FormData();
+    formData.append('files', file);
+
+    const res = await fetch("http://localhost:1337/api/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!res.ok) {
+      throw new Error("Échec de l'upload de l'image.");
+    }
+
+    const data = await res.json();
+    return data[0]; // Retourne l'objet image (avec id)
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!community) return setError("Veuillez sélectionner une communauté.");
     if (!title) return setError("Le titre est obligatoire.");
-    if (activeTab === 'link' && !isValidUrl(link)) return setError("L'URL est invalide.");
 
-    const post = {
-      title,
-      community,
-      type: activeTab,
-      content: activeTab === 'text' ? content :
-               activeTab === 'image' ? image?.name :
-               activeTab === 'link' ? link :
-               activeTab === 'poll' ? pollOptions :
-               null
-    };
+    setIsLoading(true);
 
-    console.log("Post créé :", post);
-    alert("Post simulé !");
+    const token = localStorage.getItem("jwt");
+
+    try {
+      let imageId = null;
+
+      if (image) {
+        const uploadedImage = await uploadImage(image, token);
+        imageId = uploadedImage.id;
+      }
+
+      const res = await fetch('http://localhost:1337/api/posts', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            title,
+            content,
+            subreddit: community,
+            image: imageId,
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Erreur lors de la création du post.');
+      }
+
+      const data = await res.json();
+      console.log("Post enregistré :", data);
+      alert("Post publié avec succès !");
+      handleCancel();
+    } catch (err) {
+      console.error(err);
+      setError("Échec de la création du post.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCancel = () => {
     setTitle('');
     setContent('');
     setImage(null);
-    setLink('');
-    setPollOptions(['', '']);
     setCommunity('');
     setError('');
     setImagePreview(null);
     setIsLoading(false);
   };
 
-  const handlePollOptionChange = (index, value) => {
-    const updated = [...pollOptions];
-    updated[index] = value;
-    setPollOptions(updated);
-  };
-
-  const addPollOption = () => {
-    if (pollOptions.length < 6) {
-      setPollOptions([...pollOptions, '']);
-    }
-  };
-
   return (
     <form className="add-post" onSubmit={handleSubmit}>
       <h2>Créer une publication</h2>
 
-      <select value={community} onChange={(e) => setCommunity(e.target.value)} required>
-        <option value="">Sélectionner une communauté</option>
-      </select>
-
-      <div className="tab-menu">
-        <button type="button" className={activeTab === 'text' ? 'active' : ''} onClick={() => setActiveTab('text')}>Texte</button>
-        <button type="button" className={activeTab === 'image' ? 'active' : ''} onClick={() => setActiveTab('image')}>Images et vidéo</button>
-        <button type="button" className={activeTab === 'link' ? 'active' : ''} onClick={() => setActiveTab('link')}>Lien</button>
-        <button type="button" className={activeTab === 'poll' ? 'active' : ''} onClick={() => setActiveTab('poll')}>Sondage</button>
-      </div>
+      {loading ? (
+        <p>Chargement des communautés...</p>
+      ) : (
+        <select value={community} onChange={(e) => setCommunity(e.target.value)} required>
+          <option value="">Sélectionner une communauté</option>
+          {subreddits.map((sub) => (
+            <option key={sub.id} value={sub.id}>
+              {sub.name}
+            </option>
+          ))}
+        </select>
+      )}
 
       {error && <p className="error">{error}</p>}
 
@@ -103,51 +157,21 @@ const AddPost = () => {
         required
       />
 
-      {activeTab === 'text' && (
-        <textarea
-          placeholder="Exprimez-vous..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          rows={6}
-        />
-      )}
+      <textarea
+        placeholder="Exprimez-vous..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        rows={6}
+      />
 
-      {activeTab === 'image' && (
-        <>
-          <input type="file" accept="image/*,video/*" onChange={handleImageChange} />
-          {imagePreview && <img src={imagePreview} alt="Aperçu" width="100" />}
-          {isLoading && <p>Chargement en cours...</p>}
-        </>
-      )}
+      <input type="file" accept="image/*" onChange={handleImageChange} />
+      {imagePreview && <img src={imagePreview} alt="Aperçu" width="100" />}
 
-      {activeTab === 'link' && (
-        <input
-          type="url"
-          placeholder="https://exemple.com"
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
-        />
-      )}
+      {isLoading && <p>Chargement en cours...</p>}
 
-      {activeTab === 'poll' && (
-        <div className="poll-options">
-          {pollOptions.map((option, index) => (
-            <input
-              key={index}
-              type="text"
-              placeholder={`Option ${index + 1}`}
-              value={option}
-              onChange={(e) => handlePollOptionChange(index, e.target.value)}
-              required
-            />
-          ))}
-          {pollOptions.length < 6 && (
-            <button type="button" onClick={addPollOption}>+ Ajouter une option</button>
-          )}
-        </div>
-      )}
-
-      <button type="submit">Publier</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Publication en cours..." : "Publier"}
+      </button>
       <button type="button" onClick={handleCancel} className="cancel-button">Annuler</button>
     </form>
   );

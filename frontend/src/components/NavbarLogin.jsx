@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import './components.css';
 
@@ -20,14 +20,9 @@ export default function Navbar() {
   };
 
   // Fonction pour créer un post
-  const handleCreatePost = (e) => {
-    e.preventDefault();
-    if (postTitle.trim() && postContent.trim()) {
-      setPosts([...posts, { title: postTitle, content: postContent }]);
-      setPostTitle('');
-      setPostContent('');
-      setShowPostForm(false);  // Ferme le formulaire après la soumission
-    }
+  const handleCreatePost = () => {
+   // Rediriger vers la page de connexion
+    navigate("/create-post");
   };
 
   return (
@@ -125,28 +120,6 @@ export default function Navbar() {
           <p className='profil'>Nom : John Doe</p>
           <p className='profil'>Email : john.doe@example.com</p>
           <button onClick={() => setShowProfile(false)}>Close</button>
-        </div>
-      )}
-
-      {/* Formulaire pour créer un post */}
-      {showPostForm && (
-        <div className="create-post-form">
-          <form onSubmit={handleCreatePost}>
-            <input
-              type="text"
-              placeholder="Post Title"
-              value={postTitle}
-              onChange={(e) => setPostTitle(e.target.value)}
-              required
-            />
-            <textarea
-              placeholder="Write your post content here..."
-              value={postContent}
-              onChange={(e) => setPostContent(e.target.value)}
-              required
-            />
-            <button type="submit">Create Post</button>
-          </form>
         </div>
       )}
 
