@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import logo from "../assets/hetic.jpg";
 import { register } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import logo from "../assets/hetic.jpg";
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -10,11 +10,8 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate(); // Utilisation de useNavigate pour la redirection
 
-  // Fonction de validation d'email
-  const isValidEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
+ 
+  
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -25,12 +22,8 @@ export default function Register() {
     return;
   }
 
-  // Validation de l'email
-  if (!isValidEmail(email)) {
-    alert("Veuillez entrer une adresse email valide.");
-    return;
-  }
-
+  
+ 
   try {
     const res = await register(username, email, password);
 
@@ -54,6 +47,9 @@ export default function Register() {
 
   return (
     <div className="register-container">
+      <div className="register-header">
+              <img src={logo} alt="Logo HETIC" className="logo" />
+            </div>
       
       <form onSubmit={handleSubmit} className="register-form">
         <label>Username</label>

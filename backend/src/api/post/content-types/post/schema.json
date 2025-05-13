@@ -24,18 +24,6 @@
         }
       }
     },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "posts"
-    },
-    "subreddit": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::subreddit.subreddit",
-      "inversedBy": "posts"
-    },
     "votes": {
       "type": "relation",
       "relation": "oneToMany",
@@ -51,15 +39,22 @@
     "content": {
       "type": "string"
     },
-    "visual": {
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "subreddit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subreddit.subreddit",
+      "inversedBy": "community"
     }
   }
 }

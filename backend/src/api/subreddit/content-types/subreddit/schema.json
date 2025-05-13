@@ -30,14 +30,14 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "subreddits"
     },
-    "posts": {
+    "description": {
+      "type": "string"
+    },
+    "community": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "subreddit"
-    },
-    "description": {
-      "type": "string"
     }
   }
 }
