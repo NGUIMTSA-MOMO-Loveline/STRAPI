@@ -7,10 +7,10 @@
 
 /* Corps du site */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
-  color: #000000;
-  line-height: 1.6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  margin: 0;
+  padding: 0;
 }
 
 /* Liens */
@@ -92,149 +92,157 @@ input, textarea, select {
 .login-form {
   background-color: white;
   padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: black;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 .login-content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh; /* Full height */
-}
-
-.login-header {
-  background-color: white;
-  padding: 40px; 
-  width: 300px;
-  display: flex; 
   justify-content: center;
-  position: absolute;
-  top: 20px;
-  align-items: center;
-
-
- 
-
-
-}
-.register-header {
-  background-color: white;
+  min-height: 100vh;
   padding: 20px;
-  width: 300px;
- 
-  
+}
 
-}
 .login-form label {
-  margin-bottom: 15px;
-  color:black;
-  text-align: left;
-  
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #343a40;
 }
+
 .login-form input {
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 14px;
-  background-color: white;
-  color: black;
-  box-shadow:0px 5px  rgba(0, 0, 0, 0.1);
-  
-  
-}
-.login-form button {
+  width: 100%;
   padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.login-form a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.login-form button {
+  width: 100%;
+  background-color:#64e1b4;
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #64e1b4;
-  color: rgb(40, 38, 38);
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  bottom: 10px;
-  
 }
+
 .login-form button:hover {
-  background-color: #4ad4a6;
+  background-color:#35613b;
 }
-.login-form h2 {
+
+.login-form p, .login-form h4 {
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #495057;
+  margin: 10px 0;
 }
-.logout-content button{
-  background-color: rgba(143, 141, 141, 0.723);
-  color: black;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 15px;
-  font-weight: bold;
- 
-  
+
+.alert {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 .forgot-password-form {
-  color: rgb(251, 248, 248);
-  background-color: rgb(51, 49, 49);
-  border-radius: 12px;
+  max-width: 400px;
+  margin: 80px auto;
   padding: 30px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
- 
-  
-    
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-.forgot-password-form label {
-  
-  color:#406b46;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: left;
-  
-  
-}
-.forgot-password-form input {
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #cdc8c8;
-  border-radius: 15px;
-  background-color:  rgb(236, 232, 232);
-  color: black;
-  box-shadow:0px 5px  rgba(0, 0, 0, 0.1);
+.forgot-password-form a {
+  display: inline-block;
+  margin-top: 15px;
   font-size: 14px;
+  color:  #35613b;
+  text-decoration: none;
+}
 
-  
+.forgot-password-form a:hover {
+  text-decoration: underline;
 }
-.forgot-password-form a{
-  margin-bottom: 200px;
-}
-.forgot-password-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 25px;
-  background-color: rgb(236, 232, 232);
-  color: rgb(93, 90, 90);
+
+.forgot-password-form label {
   font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: block;
+  margin-bottom: 8px;
+  color: #444;
+}
+.forgot-password-form p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #666;
+}
+p {
+  text-align: center;
+  font-size: 14px;
+  color: #28a745;
+  margin-top: 20px;
+}
+ h2 {
+  text-align: center;
+  color: #333;
   justify-content: center;
-  align-items: center;
-  
+  padding: 30px;
+}
+.forgot-password-form input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+.forgot-password-form input[type="email"]:focus {
+  border-color: #4ad4a6;
+  outline: none;
+}
+
+.forgot-password-form button {
+  width: 100%;
+  padding: 12px;
+  background-color:  #4ad4a6;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 .forgot-password-form button:hover {
   background-color: #35613b;
 }
 
+.forgot-password-form button:disabled {
+  background-color:  #79b29f;
+  cursor: not-allowed;
+}
 .register-form {
   background-color: white;
   padding: 30px;
@@ -246,34 +254,35 @@ input, textarea, select {
   justify-content: center;
   
 }
+
 .reset-password-form {
-  background-color: white;
+  max-width: 400px;
+  margin: 80px auto;
   padding: 30px;
+  background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 .reset-password-form label {
-  margin-bottom: 15px;
-  color:black;
-  text-align: left;
-  
-}
-.reset-password-form input {
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
   font-size: 14px;
-  background-color: white;
-  color: black;
-  box-shadow:0px 5px  rgba(0, 0, 0, 0.1);
-  
-  
+  color: #666;
+  display: block;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reset-password-form input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+.reset-password-form input[type="password"]:focus {
+  border-color: rgb(29, 51, 29);
+  outline: none;
 }
 .login-form input {
   padding: 12px;
@@ -294,22 +303,28 @@ input, textarea, select {
   
 }
 .reset-password-form button {
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
+  background-color: rgb(95, 196, 95);
   border: none;
-  border-radius: 5px;
-  background-color: #64e1b4;
-  color: rgb(40, 38, 38);
-  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 .reset-password-form button:hover {
   background-color: #4ad4a6;
 }
+.reset-password-form button:disabled {
+  background-color: #4ad4a6;
+  cursor: not-allowed;
+}
+
 .reset-password-form h2 {
   text-align: center;
-  margin-bottom: 10px;
-  color: black;
+  margin-bottom: 20px;
+  color: #2c3e50;
 }
 .login-form {
   background-color: white;
@@ -326,6 +341,7 @@ input, textarea, select {
 .login-form a {
   text-align: left;
   margin-bottom: 20px;
+  color: #4ad4a6;
    
   
 }
@@ -360,27 +376,45 @@ input, textarea, select {
 
 
 .register-form label {
-  margin-bottom: 15px;
-  color:black;
-  text-align: left;
-  
-
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
 }
-  
 .register-header {
   position: absolute;
   top: 20px;
   left: 20px;
   display: flex;
   align-items: center;
+  background-color: white;
+  padding: 20px;
+  width: 300px;
 
 }
+.register-logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: white;
+}
+
+
 
 .logo {
-  width: 60px ;
-  margin-right: 10px;
-  background-color: white
-  
+  max-width: 80px;
+  border-radius: 1%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo-text {
@@ -391,24 +425,26 @@ input, textarea, select {
 
 
 .register-form input {
+  width: 100%;
   padding: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 30px;
-  font-size: 14px;
-  background-color: white;
-  color: black;
-  box-shadow:0px 5px  rgba(0, 0, 0, 0.1);
-  
-  
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+}
+.register-form input:focus {
+  border-color: #74ebd5;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(116, 235, 213, 0.2);
 }
 
 .register-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 25px;
+  width: 100%;
+  padding: 12px;
   background-color: #64e1b4;
   color: rgb(40, 38, 38);
+  border: none;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -419,5 +455,6 @@ input, textarea, select {
 }
 .register-form h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  color: #333;
 }
