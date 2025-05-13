@@ -10,11 +10,8 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate(); // Utilisation de useNavigate pour la redirection
 
-  // Fonction de validation d'email
-  const isValidEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
+ 
+  
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -25,12 +22,8 @@ export default function Register() {
     return;
   }
 
-  // Validation de l'email
-  if (!isValidEmail(email)) {
-    alert("Veuillez entrer une adresse email valide.");
-    return;
-  }
-
+  
+ 
   try {
     const res = await register(username, email, password);
 

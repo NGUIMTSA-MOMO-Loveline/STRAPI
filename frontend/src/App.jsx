@@ -9,6 +9,8 @@ import Subreddit from './components/Subreddit';
 import ForgotPassword from "./pages/forgotpassword";
 import ResetPassword from './pages/resetpassword';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -27,6 +29,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
+          <ToastContainer />
+
     </>
   );
 }

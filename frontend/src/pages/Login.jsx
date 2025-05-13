@@ -2,20 +2,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import logo from "../assets/hetic.jpg";
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!username || !password) {
       setIsError(true);
-      setMessage("❌ Veuillez remplir tous les champs.");
+      toast.error("❌ Veuillez remplir tous les champs.");
       return;
     }
 
@@ -25,23 +27,19 @@ export default function LoginPage() {
         password: password,
       });
 
-      if (response.data && response.data.jwt) {
+       if (response.data && response.data.jwt) {
         localStorage.setItem("jwt", response.data.jwt);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        setIsError(false);
-        setMessage('✅ Connexion réussie. Redirection...');
-        
-        setTimeout(() => {
-          navigate('/home');
-        }, 1500);
+
+        toast.success("✅ Connexion réussie. Redirection...");
+        navigate('/home'); // Redirection immédiate
       } else {
-        setIsError(true);
-        setMessage("❌ Réponse inattendue du serveur.");
+        toast.error("❌ Réponse inattendue du serveur.");
       }
-    } catch (error) {
+     } catch (error) {
       console.error('Erreur lors de la connexion :', error.response?.data || error.message);
-      setIsError(true);
-      setMessage("❌ Connexion échouée : " + (error.response?.data?.error?.message || "Vérifiez vos identifiants."));
+      const msg = error.response?.data?.error?.message || "Vérifiez vos identifiants.";
+      toast.error("❌ Connexion échouée : " + msg);
     }
   };
 
@@ -74,22 +72,7 @@ export default function LoginPage() {
         
         <button type="submit">Connexion</button>
         
-        {/* Alerte de message */}
-        {message && (
-          <div
-            className={`alert ${isError ? 'alert-error' : 'alert-success'}`}
-            style={{
-              marginTop: "1em",
-              padding: "10px",
-              borderRadius: "5px",
-              backgroundColor: isError ? "#f8d7da" : "#d4edda",
-              color: isError ? "#721c24" : "#155724",
-              border: isError ? "1px solid #f5c6cb" : "1px solid #c3e6cb"
-            }}
-          >
-            {message}
-          </div>
-        )}
+      
       </form>
     </div>
   );
