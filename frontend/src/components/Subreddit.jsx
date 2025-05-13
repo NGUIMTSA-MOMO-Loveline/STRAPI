@@ -20,7 +20,7 @@ const Subreddits = () => {
         return res.json();
       })
       .then(data => {
-        setSubreddits(data.data);
+        setSubreddits(data.data || []);
         setLoading(false);
       })
       .catch(err => {
@@ -29,6 +29,15 @@ const Subreddits = () => {
         setLoading(false);
       });
   }, []);
+
+  const renderSubreddit = (sub) => {
+
+    return (
+      <div key={sub.id} className="element">
+        <p>{sub.name}</p>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -43,13 +52,11 @@ const Subreddits = () => {
           {loading && <p>Chargement...</p>}
           {error && <p>{error}</p>}
 
-          {!loading && !error && subreddits.map((sub) => (
-            <div key={sub.id} className="element">
-              <p>{sub.attributes.name}  <span className="arrow">〉</span></p>
-              {/* <p className="text-gray-600">{sub.attributes.description}</p> */}
-            </div>
-          ))}
+          {!loading && !error && subreddits.length === 0 && (
+            <p>Aucune communauté trouvée.</p>
+          )}
 
+          {!loading && !error && subreddits.map(renderSubreddit)}
 
 
           <div className='element' onClick={() => setShowCommunityForm(!showCommunityForm)}>

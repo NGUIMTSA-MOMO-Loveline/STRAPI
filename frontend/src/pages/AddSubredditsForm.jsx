@@ -16,30 +16,36 @@ const AddSubredditForm = () => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch("http://localhost:1337/api/subreddits", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer VOTRE_JWT_ICI` // Remplace par ton token
-            },
-            body: JSON.stringify({
-                data: {
-                    name,
-                    description
-                }
-            })
-        });
+        try {
+            const token = localStorage.getItem("jwt");
+            const response = await fetch("http://localhost:1337/api/subreddits", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}` // Remplace par ton token
+                },
+                body: JSON.stringify({
+                    data: {
+                        name,
+                        description
+                    }
+                })
+            });
 
-        if (response.ok) {
-            const newSubreddit = await response.json();
-            setSubreddits([...subreddits, newSubreddit.data]);
-            setName("");
-            setDescription("");
-        } else {
-            setError("Erreur lors de la création");
+            if (response.ok) {
+                const newSubreddit = await response.json();
+                setSubreddits([...subreddits, newSubreddit.data]);
+                setName("");
+                setDescription("");
+            } else {
+                const errorData = await response.json();
+                setError(errorData?.message || "Erreur lors de la création");
+            }
+        } catch (err) {
+            setError("Erreur réseau : " + err.message)
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
 

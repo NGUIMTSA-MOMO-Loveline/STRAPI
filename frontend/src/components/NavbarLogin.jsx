@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import './components.css';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);  // État pour afficher le formulaire de post
@@ -10,8 +12,11 @@ export default function Navbar() {
   const [posts, setPosts] = useState([]);  // Liste des posts
 
   const handleLogout = () => {
-    alert("Déconnecté");
-    setShowMenu(false);
+    // Supprimer le token (ou les infos de session) du localStorage
+    localStorage.removeItem("token");
+
+    // Rediriger vers la page de connexion
+    navigate("/");
   };
 
   // Fonction pour créer un post
