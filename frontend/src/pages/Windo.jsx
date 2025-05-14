@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
-import PostCard from '../components/PostCard';
+import Posts from './posts/Post';
+import Container from '@mui/material/Container';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/sidebar';
 
@@ -24,6 +25,15 @@ export default function Home() {
       <div style={{ display: 'flex' }}>
         <Sidebar addCommunity={addCommunity} communities={communities} />
       </div>
+
+      <Container style={{marginLeft : "30%", marginTop : "5%"}}>    
+        <div className='App'>
+          
+          <Posts/>
+
+        </div>
+      </Container>
+      
     </>
   );
 }
